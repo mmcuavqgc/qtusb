@@ -28,9 +28,18 @@ win32 {
 }
 
 unix {
-    !packagesExist(libusb-1.0):error("Could not find libusb-1.0 using PKGCONFIG")
-    CONFIG += link_pkgconfig
-    PKGCONFIG += libusb-1.0
+#    CONFIG += link_pkgconfig
+#    PKGCONFIG += libusb-1.0
+    LIBS += -L$$/home/xuan/libusb-1.0.22/android/libs/armeabi-v7a/ -lusb1.0
+    INCLUDEPATH += $$/home/xuan/libusb-1.0.22/libusb/
+#DEPENDPATH += $$PWD/../../libusb-1.0.22/android/libs/armeabi-v7a
 }
+
+
+#unix {
+#    !packagesExist(libusb-1.0):error("Could not find libusb-1.0 using PKGCONFIG")
+#    CONFIG += link_pkgconfig
+#    PKGCONFIG += libusb-1.0
+#}
 
 HEADERS += $$PUBLIC_HEADERS $$PRIVATE_HEADERS

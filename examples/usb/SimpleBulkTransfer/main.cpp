@@ -9,11 +9,11 @@ int main(int argc, char *argv[])
 
     qInfo("SimpleBulkTransfer");
 
-    QObject::connect(&timer, SIGNAL(timeout()), &a, SLOT(quit()));
+//    QObject::connect(&timer, SIGNAL(timeout()), &a, SLOT(quit()));
 
-    timer.setInterval(3000);
-    timer.setSingleShot(true);
-    timer.start();
+//    timer.setInterval(3000);
+//    timer.setSingleShot(true);
+//    timer.start();
 
     UsbExample example;
 

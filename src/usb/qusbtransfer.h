@@ -83,7 +83,7 @@ public:
     bool isSequential() const;
     Status status() const;
 
-    qint64 bytesAvailable() const;
+    qint64 bytesAvailable();
     qint64 bytesToWrite() const;
     bool waitForBytesWritten(int msecs);
     bool waitForReadyRead(int msecs);

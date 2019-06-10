@@ -4,6 +4,20 @@
 #undef interface
 #endif
 
+void UsbExample::setConfig()
+{
+    char buff[11] = {0xFF, 0x5A, 0x5B, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01};
+    QByteArray buf(buff, 11);
+    this->write(&buf);
+}
+
+void UsbExample::getConfig()
+{
+    char buff[10] = {0xFF, 0x5A, 0x19, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00};
+    QByteArray buf(buff, 10);
+    this->write(&buf);
+}
+
 UsbExample::UsbExample(QObject *parent)
     : QObject(parent), m_usb_dev(new QUsbDevice()), m_transfer_handler(Q_NULLPTR)
 {
@@ -15,6 +29,9 @@ UsbExample::UsbExample(QObject *parent)
     if (this->openDevice()) {
         qInfo("Device open!");
         this->write(&m_send);
+
+        getConfig();
+
     } else {
         qWarning("Could not open device!");
     }
@@ -36,10 +53,9 @@ void UsbExample::setupDevice()
 
     m_usb_dev->setLogLevel(QUsbDevice::logDebug);
 
-    //
-    m_filter.pid = 0x3748;
-    m_filter.vid = 0x0483;
-
+    // desc.idProduct == 0xAA97 && desc.idVendor == 0xAAAA
+    m_filter.pid = 0xAA97;
+    m_filter.vid = 0xAAAA;
     //
     m_config.alternate = 0;
     m_config.config = 1;
@@ -108,7 +124,7 @@ void UsbExample::read(QByteArray *buf)
 {
     QByteArray b(m_transfer_handler->readAll());
 
-    qDebug() << "Reading" << b << b.size();
+    qDebug() << "Reading" << b.toHex() << b.size();
     buf->append(b);
 }
 
@@ -124,7 +140,7 @@ void UsbExample::onReadyRead()
 {
     qDebug("onReadyRead");
     this->read(&m_recv);
-    this->write(&m_send);
+//    this->write(&m_send);
 }
 
 void UsbExample::onWriteComplete(qint64 bytes)

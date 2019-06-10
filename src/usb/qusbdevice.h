@@ -21,7 +21,7 @@ class Q_USB_EXPORT QUsbDevice : public QObject
     friend QUsbTransferPrivate;
 
 public:
-    static const quint16 DefaultTimeout = 250;
+    static const quint16 DefaultTimeout = 10;
 
     typedef quint8 Endpoint;
 

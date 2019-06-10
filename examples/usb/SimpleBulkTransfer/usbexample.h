@@ -23,6 +23,9 @@ public:
     void read(QByteArray *buf);
     void write(QByteArray *buf);
 
+    void getConfig();
+    void setConfig();
+
 public slots:
     void onReadyRead(void);
     void onWriteComplete(qint64 bytes);

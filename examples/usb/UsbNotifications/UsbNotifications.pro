@@ -18,3 +18,8 @@ HEADERS += \
 
 target.path = $$[QT_INSTALL_EXAMPLES]/usb/UsbNotifications
 INSTALLS += target
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        $$PWD/../../../../../libusb-1.0.22/android/libs/armeabi-v7a/libusb1.0.so
+}
